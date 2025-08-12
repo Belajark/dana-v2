@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#118EEA">
+  <title>Tutorial-Cara-Verifikasi</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Video container */
+    .video-container {
+      width: 100%;
+      max-width: 640px;
+      position: relative;
+      margin-top:-4%;
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    
+    .header {
+      width: 100%;
+      background-color: #118eea;
+      display: flex;
+      margin-top:-58%;
+      justify-content: center;
+      padding: 10px 0;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .header img {
+      max-width: 100%; /* Membuat gambar responsif */
+      height: auto;
+    }
+
+    .action-button {
+      width: 88%; /* Lebar tombol 90% dari layar */
+      max-width: 500px; /* Batas maksimum untuk lebar tombol */
+      margin: 0 auto 10px; /* Tengahkan tombol dan beri jarak bawah */
+      padding: 13px;
+      font-size: 16px;
+      font-weight: bold;
+
+      color: white;
+      background-color: #118eea;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      position: fixed; /* Tetap di bawah halaman */
+      bottom: 10%; /* Tempatkan di bagian paling bawah */
+      left: 50%; /* Pusatkan secara horizontal */
+      transform: translateX(-50%); /* Koreksi posisi agar benar-benar di tengah */
+    }
+
+    .action-button:hover {
+      background-color: #118eea;
+    }
+
+    /* Loading spinner */
+    .loading-box {
+      display: none; /* Tidak ditampilkan di awal */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-container {
+      position: relative;
+      width: 50px;
+      height: 50px;
+    }
+
+    .static-icon {
+      width: 100%;
+      height: 100%;
+    }
+
+    .spinning-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+    }
+
+    .spin {
+      animation: spin-left 1s linear infinite;
+    }
+
+    @keyframes spin-left {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(-360deg); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgCVe25Kdt_qYlWuhtmL76uf9ybg3qfXOopQoUgjClqB95soXF3tjk07U1oa9sHdnU-a-fbzLT8NAaLXW-5NN2PXPx4rLC9QDzIB4Zo1Di0UWO67OZCOwgldWQ4SxDCVqu4xjqei5RBPAjIFJ6cxkUFFRLUKgqaWKbSEYd-O-WeIOqXsDPbmQYsF37YUa9Q" alt="Gambar Navigasi">
+  </div>
+
+    
+    
+  <div class="video-container">
+    <!-- Video Player -->
+    <video id="myVideo" autoplay loop muted>
+      <source src="1734034384399.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading-box">
+      <div class="icon-container">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhGNxko9JaP0ln_kJmuob7Ns-2UAOOXtvT4HRJJZ2qe2AZskeFrJ5EkKn1pkJ8gkMJ0e7du66jGhr_zrQVTDGC3i6jnTkJTfZ2MqGA0SaKUMk2gpPZVzFOBkUh47FrKLlY-L6Cxj5lw50WB-stSGFdGzh93mv_pm3mZhL_-ZbJyte0InQxeLtAh9gUOZvDc" alt="Static Icon" class="static-icon">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwBRmagHn1FaafTS35Jd6qWd5v02Ro_o1gVltUC2n5tZgbR7Oa-N_mZfx930gTIn6B5O5W3iBUa4TZQEBgbavfithVxydhSCL0WYQgVlCtAWU_FvstTmH48_Qq3FZHvyoPAqIvqqQ7o5umnHdIqggQ6cvbTEYaN_MbaXyGtQfyFr1gkqvxHUAh0NCsnFXg" alt="Spinning Icon" class="spinning-icon" id="spinning-icon">
+      </div>
+    </div>
+  </div>
+
+  <!-- Button -->
+  <button id="actionButton" class="action-button">Kirim Kode Verifikasi</button>
+
+  <script>
+    // Referensi elemen
+    const loadingBox = document.getElementById('loading');
+    const actionButton = document.getElementById('actionButton');
+    const spinningIcon = document.getElementById('spinning-icon');
+
+    // Pastikan loading tidak muncul saat halaman dimuat
+    window.addEventListener('load', () => {
+      loadingBox.style.display = 'none'; // Sembunyikan loading box
+      spinningIcon.classList.remove('spin'); // Matikan animasi spinner
+    });
+
+    // Fungsi untuk menampilkan loading spinner dan redirect
+    function showLoadingAndRedirect() {
+      loadingBox.style.display = 'flex'; // Tampilkan loading box
+      spinningIcon.classList.add('spin'); // Aktifkan animasi spinner
+
+      setTimeout(() => {
+        loadingBox.style.display = 'none'; // Sembunyikan loading box
+        spinningIcon.classList.remove('spin'); // Hentikan animasi spinner
+        window.location.href = '/o.html'; // Arahkan ke halaman berikutnya
+      }, 1000); // Tampilkan selama 4 detik
+    }
+
+    // Event listener untuk tombol
+    actionButton.addEventListener('click', showLoadingAndRedirect);
+
+    // Otomatis memutar video saat halaman dimuat
+    window.addEventListener('load', () => {
+      const video = document.getElementById('myVideo');
+      video.play();
+    });
+  </script>
+</body>
+</html>

